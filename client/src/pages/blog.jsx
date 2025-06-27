@@ -405,6 +405,7 @@ function Blog() {
           )}
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

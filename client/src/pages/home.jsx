@@ -1,4 +1,5 @@
 import Header from '../components/header';
+import Footer from '../components/footer'
 import React, { useEffect, useState } from "react";
 import { FiThumbsUp, FiMessageSquare, FiShare2, FiBookmark } from 'react-icons/fi';
 import axios from 'axios'
@@ -98,6 +99,7 @@ function Home() {
           )): <p>No Blog Posts yet, Blog under Development</p>}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
