@@ -277,7 +277,7 @@ function Blog() {
         </h2>
         
         <div className="text-sm text-gray-500 mb-6">
-          {isLoading ? 'Published • Author' : 'Published April 5, 2025 • John Doe'}
+          {isLoading ? 'Published • Author' : 'Published April 5, 2025 • DavinDicator'}
         </div>
         
         <div className="prose prose-blue max-w-none prose-img:rounded-lg prose-strong:text-indigo-600">
