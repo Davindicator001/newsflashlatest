@@ -3,7 +3,7 @@ import Footer from '../components/footer'
 import React, { useEffect, useState } from "react";
 import { FiThumbsUp, FiMessageSquare, FiShare2, FiBookmark } from 'react-icons/fi';
 import axios from 'axios'
-const API_BASE_URL = "http://localhost:5000"
+const API_BASE_URL = "https://newsflashlatest.onrender.com"
 function Home() {
   const [blogData, setBlogData] = useState([]);
   const [activeTab, setActiveTab] = useState('latest');

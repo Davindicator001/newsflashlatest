@@ -5,7 +5,7 @@ import {
 } from 'react-icons/fi';
 import axios from 'axios';
 
-const api_base_url = 'http://localhost:5000';
+const api_base_url = 'https://newsflashlatest.onrender.com';
 let currentUser = false;
 
 function Header() {

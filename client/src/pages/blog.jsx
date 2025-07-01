@@ -6,7 +6,7 @@ import { FiHeart, FiArrowLeft, FiThumbsUp, FiX } from 'react-icons/fi';
 import axios from 'axios';
 import { getUserStatus } from "../components/header";
 
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://newsflashlatest.onrender.com';
 
 function Blog() {
   const [user, setUser] = useState({});
