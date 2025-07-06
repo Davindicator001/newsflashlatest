@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify';
 import { FiHeart, FiArrowLeft, FiThumbsUp, FiX } from 'react-icons/fi';
 import axios from 'axios';
 import { getUserStatus } from "../components/header";
-
+import Footer from "../components/footer";
 const API_BASE_URL = 'https://newsflashlatest.onrender.com';
 
 function Blog() {
