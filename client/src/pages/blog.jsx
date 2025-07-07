@@ -247,7 +247,7 @@ function Blog() {
         {/* Featured Image its unique so i guess its not gonna match the post */}
         <div className="relative h-48 z-1 bg-slate-200 rounded-lg overflow-hidden mb-6">
           <img 
-            src={`https://static.photos/1200x400/${getBlogId()}`} 
+            src={`https://static.photos/1200x400/${ getBlogId() * 10}`} 
             alt="Blog feature" 
             className="w-full h-full object-cover mix-blend-multiply"
           />

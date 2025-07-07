@@ -96,7 +96,7 @@ function Home() {
                 </div>
               </div>
             </article>
-          )): <p>No Blog Posts yet, Blog under Development</p>}
+          )): <p>Fetching Posts...</p>}
         </div>
       </div>
       <Footer />
