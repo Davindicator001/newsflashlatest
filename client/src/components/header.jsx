@@ -505,7 +505,7 @@ function Header() {
               <div className="flex space-x-2">
                 <button 
                   onClick={() => setShowLogin(true)}
-                  className="px-3 py-1 rounded-md bg-white hover:underline font-bold font-mono text-sm shadow hover:bg-gray-100 transition duration-300 text-teal-600"
+                  className="px-3 py-1 sm:px-1 rounded-md bg-white hover:underline font-bold font-mono text-sm shadow hover:bg-gray-100 transition duration-300 text-teal-600"
                 >
                   Login
                 </button>
