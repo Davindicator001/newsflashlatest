@@ -250,6 +250,7 @@ function Blog() {
             src={`https://static.photos/1200x400/${ getBlogId() * 10}`}
             alt="Blog feature"
             className="w-full h-full object-cover mix-blend-multiply"
+            fetchpriority="high"
           />
         </div>
         <div className="flex justify-between">

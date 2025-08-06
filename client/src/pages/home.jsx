@@ -63,6 +63,7 @@ function Home() {
                     src={blog.post_thumbnail}
                     alt={blog.title}
                     className="w-full h-full object-cover"
+                    fetchpriority="high"
                   />
                 </div>
                 <div className="p-6 md:w-2/3">
