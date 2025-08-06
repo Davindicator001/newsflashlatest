@@ -182,11 +182,11 @@ function Header() {
           firstInput.select();
         }
       }, 100);
-    }
 
-    return () => {
-      initialFocusSet.current = false;
-    };
+      return () => {
+        initialFocusSet.current = false;
+      };
+    }
   }, [showLogin, showSignup]);
 
   // Existing user check
