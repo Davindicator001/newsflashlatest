@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "../components/header";
 import DOMPurify from 'dompurify';
@@ -231,24 +230,25 @@ function Blog() {
       console.log(error);
     }
     };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Header/>
       {showError && (
         <div className="flex justify-center left-[50%] top-[10px] translate-x-[-50%] fixed mt-6 z-100 w-auto bg-white shadow rounded hover:shadow-md">
-          <FiX 
+          <FiX
           className="flex text-md p-2"
           size={40}
           onClick = {()=> setShowError(false)} /><br></br>
           <p className="font-bold text-md p-2">You must be logged in to use this feature</p>
         </div>
       )}
-      <section className="z-0 max-w-4xl mx-auto mt-6 p-4 bg-white rounded-lg shadow-md">
+      <main className="z-0 max-w-4xl mx-auto mt-6 p-4 bg-white rounded-lg shadow-md">
         {/* Featured Image its unique so i guess its not gonna match the post */}
         <div className="relative h-48 z-1 bg-slate-200 rounded-lg overflow-hidden mb-6">
-          <img 
-            src={`https://static.photos/1200x400/${ getBlogId() * 10}`} 
-            alt="Blog feature" 
+          <img
+            src={`https://static.photos/1200x400/${ getBlogId() * 10}`}
+            alt="Blog feature"
             className="w-full h-full object-cover mix-blend-multiply"
           />
         </div>
@@ -271,23 +271,23 @@ function Blog() {
             <p>{error}</p>
           </div>
         )}
-        
+
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 leading-tight">
           {isLoading ? 'Loading...' : blogData.title || 'Untitled Article'}
         </h2>
-        
+
         <div className="text-sm text-gray-500 mb-6">
           {isLoading ? 'Published • Author' : 'Published April 5, 2025 • DavinDicator'}
         </div>
-        
+
         <div className="prose prose-blue max-w-none prose-img:rounded-lg prose-strong:text-indigo-600">
           {isLoading ? (
             <div className="flex justify-center items-center min-h-[200px] py-8">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
             </div>
           ) : (
-            <div 
-            dangerouslySetInnerHTML={{ __html:blogData.content }} 
+            <div
+            dangerouslySetInnerHTML={{ __html:blogData.content }}
             className="blog-content prose-img:rounded-lg first-letter:text-7xl first-letter:float-left first-letter:mr-3 first-letter:text-blue-600 first-letter:font-bold"
             />
           )}
@@ -300,19 +300,19 @@ function Blog() {
             </h3>
             <span className="text-sm text-gray-500">Sorted by newest</span>
           </div>
-          
+
           {/* New comment input */}
           <div className="mb-6">
             <label className="block text-gray-700 font-medium mb-2">Add your comment</label>
             <div className="flex gap-3">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
-                placeholder="What are your thoughts?" 
+                placeholder="What are your thoughts?"
                 className="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 />
-              <button 
+              <button
                 onClick={handleAddComment}
                 disabled={!newComment.trim()}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
@@ -325,43 +325,43 @@ function Blog() {
               </button>
             </div>
           </div>
-          
+
           {/* Comments list */}
           {blogData.comments.length > 0 ? (
             <div className="space-y-4">
               {blogData.comments.map((comment) => (
-                <div key={comment.id} className="p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-blue-50">
+                <article key={comment.id} className="p-4 border border-gray-200 rounded-lg bg-gradient-to-br from-white to-blue-50">
                   <div className="flex justify-between mb-2">
                     <span className="font-medium text-gray-800">{comment.author}</span>
                     <span className="text-sm text-gray-500">
                     {comment.created_at && comment.created_at !== "N/A" ? new Date(comment.created_at).toLocaleDateString() : new Date().toLocaleDateString()}
                     </span>
                   </div>
-                  
+
                   <p className="mb-4 text-gray-700">{comment.text}</p>
-                  
+
                   <div className="flex items-center space-x-4">
-                    <button 
+                    <button
                       onClick={() => toggleLike(comment.id)}
                       className="flex items-center text-sm text-gray-500 hover:text-blue-500 transition-colors"
                     >
                       <FiHeart className={`w-5 h-5 mr-1 ${comment.isLiked ? 'text-blue-500 fill-current' : ''}`}/>
                       {comment.likes}
                     </button>
-                    
-                    <button 
+
+                    <button
                       onClick={() => setExpandedReplies({
-                        ...expandedReplies, 
+                        ...expandedReplies,
                         [comment.id]: !expandedReplies[comment.id]
                       })}
                       className="text-sm text-gray-500 hover:text-blue-500 transition-colors"
                       >
-                      {comment.replies.length > 0 
-                        ? `${comment.replies.length} Reply${comment.replies.length > 1 ? 's' : ''}` 
+                      {comment.replies.length > 0
+                        ? `${comment.replies.length} Reply${comment.replies.length > 1 ? 's' : ''}`
                         : 'Reply'}
                     </button>
                   </div>
-                  
+
                   {/* Replies section */}
                   {expandedReplies[comment.id] && (
                     <div className="mt-4 ml-6 border-l-2 border-gray-200 pl-4">
@@ -373,7 +373,7 @@ function Blog() {
                           <p className="text-gray-700">{reply.text}</p>
                         </div>
                       ))}
-                      
+
                       {/* Reply input */}
                       <div className="mt-3">
                         <input
@@ -395,7 +395,7 @@ function Blog() {
                       </div>
                     </div>
                   )}
-                </div>
+                </article>
               ))}
             </div>
           ) : (
@@ -404,7 +404,7 @@ function Blog() {
             </div>
           )}
         </div>
-      </section>
+      </main>
       <Footer />
     </div>
   );

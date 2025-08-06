@@ -16,9 +16,9 @@ function Header() {
   const [showSignup, setShowSignup] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const [signupForm, setSignupForm] = useState({ 
-    email: '', 
-    username: '', 
+  const [signupForm, setSignupForm] = useState({
+    email: '',
+    username: '',
     password: '',
     profilePic: null,
     agreeToPolicy: false
@@ -51,7 +51,7 @@ function Header() {
       if (data.email && data.username && data.password) {
         const response = await axios.post(`${api_base_url}/api/register`, data);
         const details = response.data;
-        currentUser = true
+        currentUser = true;
         return details;
       } else {
         throw new Error('Missing required fields');
@@ -70,7 +70,7 @@ function Header() {
 
     try {
       const response = await mockLogin(loginForm);
-      if(!response) throw "Invalid Credentials"
+      if(!response) throw "Invalid Credentials";
       localStorage.setItem('newsflashuser', response.token);
       setUser(response.user);
       currentUser = true;
@@ -83,13 +83,13 @@ function Header() {
       setAuthLoading(false);
     }
   };
-  
+
   const handleSignup = async (e) => {
     e.preventDefault();
     setAuthLoading(true);
     setAuthError('');
     setAuthSuccess('');
-    
+
     try {
       const response = await mockSignup(signupForm);
       if(!response) throw "User Already Registered Log In";
@@ -118,16 +118,16 @@ function Header() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!modalRef.current) return;
-      
+
       const overlay = modalRef.current.parentElement;
       const isOutsideModal = !modalRef.current.contains(e.target) && e.target === overlay;
-      
+
       // Only close if clicking on the overlay background
       if (isOutsideModal) {
         setShowLogin(false);
         setShowSignup(false);
       }
-      
+
       // Don't focus if clicking on inputs or buttons
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
         return;
@@ -145,7 +145,7 @@ function Header() {
         const focusableElements = modalRef.current.querySelectorAll(
           'button, input, [tabindex]:not([tabindex="-1"])'
         );
-        
+
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -174,7 +174,7 @@ function Header() {
     if ((showLogin || showSignup) && !initialFocusSet.current) {
       setAuthError('');
       initialFocusSet.current = true;
-      
+
       setTimeout(() => {
         const firstInput = document.querySelector('.modal-content input');
         if (firstInput) {
@@ -183,7 +183,7 @@ function Header() {
         }
       }, 100);
     }
-    
+
     return () => {
       initialFocusSet.current = false;
     };
@@ -213,8 +213,75 @@ function Header() {
     };
     getUser();
   }, []);
+
   return (
-    <div>
+    <header className="bg-teal-600 shadow-md">
+      <div className="flex justify-between p-4 mx-auto">
+        <h1 className="text-md md:text-xl text-white font-bold">NewsFlashLatest</h1>
+        <nav className="flex flex-row transition space-x-4">
+          {isLoggedIn ? (
+            <div className='flex items-center'>
+              {user.profilePic ? (
+                <img
+                  src={user.profilePic}
+                  alt={user.userName}
+                  className="w-8 h-8 rounded-full outline outline-yellow-800 object-cover"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-teal-400 flex items-center justify-center text-white font-bold">
+                  {user.username?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+              )}
+              {userModal ? (
+                <>
+                  <FiArrowUp
+                    onClick={() => setUserModal(false)}
+                    className="ml-2 text-white cursor-pointer"
+                  />
+                  <div className="fixed bg-white top-16 right-4 shadow-md shadow-black/10 flex flex-col mx-auto my-6 rounded-md min-w-40 items-start z-40">
+                    <div className="flex flex-start item-start w-full text-sm rounded-t-md text-black hover:bg-gray-100 transition duration-300 py-2 px-6">
+                      <FiUser className="mr-2" /> Profile
+                    </div>
+                    <div className="flex flex-start item-start w-full text-sm text-black hover:bg-gray-100 transition duration-300 py-2 px-6">
+                      <FiSettings className="mr-2" /> Settings
+                    </div>
+                    <div
+                      onClick={handleLogout}
+                      className="flex flex-start item-start w-full text-sm rounded-b-md text-black hover:bg-gray-100 transition duration-300 py-2 px-6 cursor-pointer"
+                    >
+                      <FiLogOut className="mr-2" /> Logout
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <FiArrowDown
+                  onClick={() => setUserModal(true)}
+                  className="ml-2 text-white cursor-pointer"
+                />
+              )}
+            </div>
+          ) : (
+            <div className="flex space-x-2">
+              <button
+                onClick={() => setShowLogin(true)}
+                className="px-3 py-1 sm:px-1 rounded-md bg-white hover:underline font-bold font-mono text-sm shadow hover:bg-gray-100 transition duration-300 text-teal-600"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => setShowSignup(true)}
+                className="px-3 py-1 rounded-md bg-white hover:underline font-bold font-mono text-sm shadow hover:bg-gray-100 transition duration-300 text-teal-600"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
+          <a className="flex text-white text-sm items-center md:text-md hover:text-gray-600 hover:underline transition" href="/">
+            <FiHome className="m-[3px]" /> home
+          </a>
+        </nav>
+      </div>
+
       {/* Login Modal */}
       {isLoginModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300 animate-fadeIn">
@@ -454,79 +521,11 @@ function Header() {
           </div>
         </div>
       )}
-
-      {/* Main UI */}
-      <header className="bg-teal-600 shadow-md">
-        <div className="flex justify-between p-4 mx-auto">
-          <h1 className="text-md md:text-xl text-white font-bold">NewsFlashLatest</h1>
-          <nav className="flex flex-row transition space-x-4">
-            {isLoggedIn ? (
-              <div className='flex items-center'>
-                {user.profilePic ? (
-                  <img 
-                    src={user.profilePic}
-                    alt={user.userName}
-                    className="w-8 h-8 rounded-full outline outline-yellow-800 object-cover"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-teal-400 flex items-center justify-center text-white font-bold">
-                    {user.username?.charAt(0)?.toUpperCase() || 'U'}
-                  </div>
-                )}
-                {userModal ? (
-                  <>
-                    <FiArrowUp 
-                      onClick={() => setUserModal(false)}
-                      className="ml-2 text-white cursor-pointer"
-                    />
-                    <div className="fixed bg-white top-16 right-4 shadow-md shadow-black/10 flex flex-col mx-auto my-6 rounded-md min-w-40 items-start z-40">
-                      <div className="flex flex-start item-start w-full text-sm rounded-t-md text-black hover:bg-gray-100 transition duration-300 py-2 px-6">
-                        <FiUser className="mr-2" /> Profile
-                      </div>
-                      <div className="flex flex-start item-start w-full text-sm text-black hover:bg-gray-100 transition duration-300 py-2 px-6">
-                        <FiSettings className="mr-2" /> Settings
-                      </div>
-                      <div 
-                        onClick={handleLogout}
-                        className="flex flex-start item-start w-full text-sm rounded-b-md text-black hover:bg-gray-100 transition duration-300 py-2 px-6 cursor-pointer"
-                      >
-                        <FiLogOut className="mr-2" /> Logout
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <FiArrowDown 
-                    onClick={() => setUserModal(true)} 
-                    className="ml-2 text-white cursor-pointer"
-                  />
-                )}
-              </div>
-            ) : (
-              <div className="flex space-x-2">
-                <button 
-                  onClick={() => setShowLogin(true)}
-                  className="px-3 py-1 sm:px-1 rounded-md bg-white hover:underline font-bold font-mono text-sm shadow hover:bg-gray-100 transition duration-300 text-teal-600"
-                >
-                  Login
-                </button>
-                <button 
-                  onClick={() => setShowSignup(true)}
-                  className="px-3 py-1 rounded-md bg-white hover:underline font-bold font-mono text-sm shadow hover:bg-gray-100 transition duration-300 text-teal-600"
-                >
-                  Sign Up
-                </button>
-              </div>
-            )}
-            <a className="flex text-white text-sm items-center md:text-md hover:text-gray-600 hover:underline transition" href="/">
-              <FiHome className="m-[3px]" /> home
-            </a>
-          </nav>
-        </div>
-      </header>
-    </div>
+    </header>
   );
 }
+
 export default Header;
-export const getUserStatus = async () =>{
+export const getUserStatus = async () => {
   return await currentUser;
-}
+};

@@ -107,14 +107,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-/* 
-  Add this to your global CSS or Tailwind config for the fadeInOut animation:
-  @keyframes fadeInOut {
-    0%,100% { opacity: 0; }
-    10%,90% { opacity: 1; }
-  }
-  .animate-fadeInOut {
-    animation: fadeInOut 4s infinite;
-  }
-*/
