@@ -66,9 +66,6 @@ function Home() {
                     fetchpriority="high"
                     loading="lazy"
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    srcSet={`https://res.cloudinary.com/du4bzzwi4/image/upload/w_380/${blog.post_thumbnail} 380w,
-                             https://res.cloudinary.com/du4bzzwi4/image/upload/w_768/${blog.post_thumbnail} 768w,
-                             https://res.cloudinary.com/du4bzzwi4/image/upload/w_1280/${blog.post_thumbnail} 1280w`}
                   />
                 </div>
                 <div className="p-6 md:w-2/3">
